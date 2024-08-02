@@ -1,0 +1,39 @@
+:root {
+  --header-height: 64px;
+  --primary-color: #00b96b;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  z-index: 999;
+
+  .menu {
+    height: 100%;
+    margin-left: 100px;
+
+    display: flex;
+    .link {
+      color: black;
+      text-align: center;
+      height: calc(100% - 2px);
+      text-decoration: none;
+      width: 100px;
+      line-height: var(--header-height);
+      transition: 300ms;
+      border-bottom: 2px solid white;
+
+      &:hover {
+        border-color: var(--primary-color);
+        cursor: pointer;
+      }
+      &.active {
+        color: var(--primary-color);
+      }
+    }
+  }
+}

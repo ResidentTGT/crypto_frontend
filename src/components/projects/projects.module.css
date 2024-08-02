@@ -1,0 +1,49 @@
+:root {
+  --primary-color: #00b96b;
+}
+aside {
+  width: 300px;
+  overflow-y: auto;
+  padding-top: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  .navElem {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 25px 0 40px;
+    transition: 300ms;
+    border: none;
+    background: none;
+    border-right: 2px solid white;
+
+    &:hover {
+      border-color: var(--primary-color);
+      cursor: pointer;
+    }
+    &.active {
+      color: var(--primary-color);
+    }
+    .arrow {
+      font-size: 12px;
+    }
+  }
+  .urlBox {
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+    &.active {
+      max-height: 100%;
+      transition: max-height 0.3s ease-in;
+    }
+  }
+}
+.content {
+  width: calc(100% - 200px);
+  height: 100%;
+}
