@@ -1,8 +1,9 @@
 :root {
   --primary-color: #00b96b;
+  --aside-width: 250px;
 }
 aside {
-  width: 300px;
+  width: var(--aside-width);
   overflow-y: auto;
   padding-top: 20px;
   border-right: 1px solid rgba(0, 0, 0, 0.05);
@@ -32,6 +33,9 @@ aside {
     .arrow {
       font-size: 12px;
     }
+    &.tree {
+      padding-left: 60px;
+    }
   }
   .urlBox {
     max-height: 0;
@@ -44,6 +48,8 @@ aside {
   }
 }
 .content {
-  width: calc(100% - 200px);
+  position: relative;
+  width: calc(100% - var(--aside-width));
+
   height: 100%;
 }

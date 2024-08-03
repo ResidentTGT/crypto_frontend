@@ -1,5 +1,4 @@
 import styles from "./main.module.css";
-import { theme, Menu, MenuProps } from "antd";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "../home/home";
@@ -8,6 +7,7 @@ import { Projects } from "../projects/projects";
 import { Blast } from "../projects/blast/blast";
 import { Leaderboard } from "../projects/blast/leaderboard/leaderboard";
 import { Gold } from "../projects/blast/gold/gold";
+import { Empty } from "../empty/empty";
 
 export const Main: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ export const Main: React.FC = () => {
             <Route path="leaderboard" element={<Leaderboard />}></Route>
             <Route path="gold" element={<Gold />}></Route>
           </Route>
-          <Route path="linea" element={<About />}></Route>
+          <Route path="linea" element={<Empty />}></Route>
         </Route>
       </Routes>
     </div>

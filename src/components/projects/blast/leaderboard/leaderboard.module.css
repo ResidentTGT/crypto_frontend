@@ -1,5 +1,78 @@
 :root {
+  --description-height: 40px;
+  --tableHeader-height: 50px;
+}
+.leaderboard {
   position: relative;
   width: 100%;
   height: 100%;
+  .description {
+    width: 100%;
+    height: var(--description-height);
+    > a {
+      text-decoration: none;
+      color: #1677ff;
+      transition: 200ms;
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .table {
+    width: 100%;
+    height: calc(100% - var(--description-height));
+
+    .tableHeader {
+      width: 100%;
+      display: flex;
+      height: var(--tableHeader-height);
+      border-radius: 8px 8px 0 0;
+      overflow-x: hidden;
+
+      & > div {
+        display: flex;
+        background-color: #fafafa;
+        align-items: center;
+        font-weight: 500;
+        padding-left: 15px;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+      }
+    }
+    .tableBody {
+      width: 100%;
+      height: calc(100% - var(--tableHeader-height));
+      overflow: auto;
+
+      .tableRow {
+        display: flex;
+        height: 40px;
+        box-sizing: border-box;
+        & > div {
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          border-right: 1px solid rgba(0, 0, 0, 0.05);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          box-sizing: border-box;
+          &:not(:first-child) {
+            padding-left: 15px;
+          }
+          > img {
+            max-width: 40px;
+            max-height: 40px;
+          }
+          > a {
+            text-decoration: none;
+            color: #1677ff;
+            transition: 200ms;
+            &:hover {
+              color: var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
 }
