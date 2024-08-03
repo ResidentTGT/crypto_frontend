@@ -27,10 +27,6 @@ const PROJECTS: MenuItem[] = [
       },
     ],
   },
-  {
-    name: "Linea",
-    path: "linea",
-  },
 ];
 
 export const Projects = () => {

@@ -7,6 +7,7 @@ aside {
   overflow-y: auto;
   padding-top: 20px;
   border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
   .navElem {
     width: 100%;
     box-sizing: border-box;
