@@ -1,0 +1,59 @@
+:root {
+  --description-height: 40px;
+}
+.poh {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .description {
+    width: 100%;
+    height: var(--description-height);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+  }
+  .checkPoh {
+    height: calc(100% - var(--description-height) - 20px);
+    margin-top: 20px;
+    .form {
+      display: flex;
+      height: 35px;
+      align-items: center;
+      .input {
+        width: 350px;
+      }
+      .checkButton {
+        margin-left: 20px;
+      }
+    }
+
+    .pohStatus {
+      padding-top: 10px;
+      box-sizing: border-box;
+      height: calc(100% - 35px);
+      .statuses {
+        display: flex;
+        align-items: center;
+        height: 35px;
+      }
+      .attestations {
+        display: flex;
+        height: calc(100% - 70px);
+        > div {
+          height: calc(100% - 30px);
+          &.group {
+            width: 50%;
+            .issuer {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              height: 40px;
+              span {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

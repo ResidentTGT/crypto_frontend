@@ -8,6 +8,8 @@ import { Blast } from "../projects/blast/blast";
 import { Leaderboard } from "../projects/blast/leaderboard/leaderboard";
 import { Gold } from "../projects/blast/gold/gold";
 import { Empty } from "../empty/empty";
+import { Linea } from "../projects/linea/linea";
+import { Poh } from "../projects/linea/poh/poh";
 
 export const Main: React.FC = () => {
   return (
@@ -25,7 +27,10 @@ export const Main: React.FC = () => {
             <Route path="leaderboard" element={<Leaderboard />}></Route>
             <Route path="gold" element={<Gold />}></Route>
           </Route>
-          <Route path="linea" element={<Empty />}></Route>
+          <Route path="linea" element={<Linea />}>
+            <Route path="" element={<Navigate to="poh" replace />}></Route>
+            <Route path="poh" element={<Poh />}></Route>
+          </Route>
         </Route>
       </Routes>
     </div>

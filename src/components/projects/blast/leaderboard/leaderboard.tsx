@@ -6,6 +6,8 @@ import { BlastState, getLeaderboard } from "../../../../reducers/blast";
 import { Divider, Table } from "antd";
 import React from "react";
 import { LEADERBOARD_COLUMNS } from "./leaderboardColumns";
+import Error from "../../../error/error";
+import { Loading } from "../../../loading/loading";
 export const Leaderboard = () => {
   const status = useSelector<RootState, string>((state) => state.blast.status);
   const leaderboard = useSelector<RootState, any[]>((state) => {
@@ -53,11 +55,11 @@ export const Leaderboard = () => {
   const tableHeaderRef = useRef<HTMLDivElement | null>(null);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (status === "failed") {
-    return <div>Error: </div>;
+    return <Error />;
   }
 
   const handleScrollTable = (event: UIEvent) => {

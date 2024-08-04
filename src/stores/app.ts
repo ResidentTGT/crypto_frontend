@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import blastReducer from "../reducers/blast";
-import counterReducer from "../reducers/counter";
+import lineaReducer from "../reducers/linea";
 
 export const appStore = configureStore({
   reducer: {
-    counter: counterReducer,
+    linea: lineaReducer,
     blast: blastReducer,
   },
 });

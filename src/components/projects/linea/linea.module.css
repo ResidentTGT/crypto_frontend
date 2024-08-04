@@ -1,0 +1,10 @@
+:root {
+  --padding: 30px;
+}
+
+.linea {
+  position: relative;
+  width: calc(100% - var(--padding) * 2);
+  height: calc(100% - var(--padding) * 2);
+  padding: var(--padding);
+}

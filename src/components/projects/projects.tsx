@@ -27,6 +27,16 @@ const PROJECTS: MenuItem[] = [
       },
     ],
   },
+  {
+    name: "Linea",
+    path: "linea",
+    children: [
+      {
+        name: "Check POH",
+        path: "poh",
+      },
+    ],
+  },
 ];
 
 export const Projects = () => {
