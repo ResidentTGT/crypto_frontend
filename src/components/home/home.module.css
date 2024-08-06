@@ -1,0 +1,35 @@
+.home {
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  .layout {
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    .widgets {
+      height: 50%;
+      width: 100%;
+      display: flex;
+      box-sizing: border-box;
+      .widget {
+        height: 100%;
+        background-color: #fafafa;
+        width: calc(100% / 3);
+        border-radius: 40px;
+        &:not(:first-child) {
+          margin-left: 40px;
+        }
+      }
+    }
+    .graph {
+      height: 50%;
+      width: 100%;
+      padding-top: 40px;
+      box-sizing: border-box;
+    }
+  }
+}
