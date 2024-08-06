@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const getPoh = createAsyncThunk(
   "linea/getPoh",
   async (wallet: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/linea/poh/${wallet}`);
+      const response = await axios.get(`${API_URL}linea/poh/${wallet}`);
 
       return response.data;
     } catch (error: any) {

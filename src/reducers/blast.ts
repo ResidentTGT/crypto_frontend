@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const getLeaderboard = createAsyncThunk(
   "blast/getLeaderboard",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL + "/blast/leaderboard");
+      const response = await axios.get(API_URL + "blast/leaderboard");
 
       return response.data.dapps;
     } catch (error: any) {

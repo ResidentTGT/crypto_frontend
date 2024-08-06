@@ -28,7 +28,7 @@ aside {
       border-color: var(--primary-color);
       cursor: pointer;
     }
-    &.active {
+    &.highlighted {
       color: var(--primary-color);
     }
     .arrow {
@@ -42,7 +42,7 @@ aside {
     max-height: 0;
     transition: max-height 0.3s ease-out;
     overflow: hidden;
-    &.active {
+    &.opened {
       max-height: 100%;
       transition: max-height 0.3s ease-in;
     }
@@ -51,6 +51,5 @@ aside {
 .content {
   position: relative;
   width: calc(100% - var(--aside-width));
-
   height: 100%;
 }
