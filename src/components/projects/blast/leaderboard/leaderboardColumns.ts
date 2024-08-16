@@ -22,7 +22,7 @@ export const LEADERBOARD_COLUMNS = [
   {
     title: "Gold Distributed",
     key: "goldDistributed",
-    width: "150px",
+    width: "155px",
   },
   {
     title: "Gold Left",
@@ -37,11 +37,11 @@ export const LEADERBOARD_COLUMNS = [
   {
     title: "Points Distributed",
     key: "pointsDistributed",
-    width: "150px",
+    width: "170px",
   },
   {
     title: "Points Left",
     key: "pointsLeft",
-    width: "150px",
+    width: "180px",
   },
 ];

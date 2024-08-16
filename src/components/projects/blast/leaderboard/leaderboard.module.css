@@ -32,12 +32,20 @@
 
       & > div {
         display: flex;
+        justify-content: space-between;
         background-color: #fafafa;
         align-items: center;
         font-weight: 500;
         padding-left: 15px;
         border-right: 1px solid rgba(0, 0, 0, 0.05);
         box-sizing: border-box;
+        cursor: pointer;
+
+        .arrow {
+          font-size: 13px;
+          padding-right: 10px;
+          color: var(--primary-color);
+        }
       }
     }
     .tableBody {

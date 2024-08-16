@@ -1,6 +1,5 @@
-import { Menu } from "antd";
 import styles from "./header.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Header: React.FC = () => {
   const getClassName = (isActive: boolean) =>
@@ -9,9 +8,9 @@ export const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.menu}>
-        <NavLink to={`/`} className={({ isActive }) => getClassName(isActive)}>
+        {/* <NavLink to={`/`} className={({ isActive }) => getClassName(isActive)}>
           Home
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to={`projects`}
           className={({ isActive }) => getClassName(isActive)}
