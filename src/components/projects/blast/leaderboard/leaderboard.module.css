@@ -33,7 +33,7 @@
       & > div {
         display: flex;
         justify-content: space-between;
-        background-color: #fafafa;
+        background-color: var(--primary-background);
         align-items: center;
         font-weight: 500;
         padding-left: 15px;

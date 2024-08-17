@@ -5,4 +5,5 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 15px;
   --primary-color: #00b96b;
+  --primary-background: #fafafa;
 }

@@ -1,0 +1,50 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  .image {
+    height: 150px;
+    width: 150px;
+    img {
+      height: 150px;
+      width: 150px;
+      border-radius: 75px;
+    }
+  }
+  .name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .description {
+    font-size: 18px;
+    margin: 25px 0 15px 0;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    a {
+      width: 250px;
+      height: 50px;
+      background-color: var(--primary-background);
+      margin-top: 15px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      color: black;
+      text-decoration: none;
+      border: 1px solid var(--primary-background);
+      transition: 300ms;
+      &:hover {
+        border: 1px solid var(--primary-color);
+      }
+    }
+  }
+}
