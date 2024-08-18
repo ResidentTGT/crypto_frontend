@@ -1,12 +1,4 @@
-import { Empty } from "../empty/empty";
-import {
-  AdvancedRealTimeChart,
-  CryptoCoinsHeatmap,
-  CryptoCurrencyMarket,
-  MiniChart,
-  SymbolInfo,
-  TickerTape,
-} from "react-ts-tradingview-widgets";
+import { CryptoCurrencyMarket } from "react-ts-tradingview-widgets";
 import styles from "./home.module.css";
 
 export const Home = () => {
