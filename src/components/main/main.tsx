@@ -7,7 +7,6 @@ import { Projects } from "../projects/projects";
 import { Blast } from "../projects/blast/blast";
 import { Leaderboard } from "../projects/blast/leaderboard/leaderboard";
 import { Gold } from "../projects/blast/gold/gold";
-import { Empty } from "../empty/empty";
 import { Linea } from "../projects/linea/linea";
 import { Poh } from "../projects/linea/poh/poh";
 
@@ -15,7 +14,7 @@ export const Main: React.FC = () => {
   return (
     <div className={styles.main}>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="" element={<Home />}></Route>
         <Route path="about" element={<About />} />
         <Route path="projects" element={<Projects />}>
           <Route path="" element={<Navigate to="blast" replace />}></Route>

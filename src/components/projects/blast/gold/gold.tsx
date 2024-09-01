@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Empty } from "../../../empty/empty";
 import styles from "./gold.module.css";
 import { Input } from "antd";
 export const Gold = () => {
   const ALLOCATION_OF_BLAST = 5000000000;
-  const [goldSupply, setGoldSupply] = useState("150000000");
-  const [blastPrice, setBlastPrice] = useState("0.012");
+  const [goldSupply, setGoldSupply] = useState("200000000");
+  const [blastPrice, setBlastPrice] = useState("0.01");
 
   return (
     <div className={styles.gold}>

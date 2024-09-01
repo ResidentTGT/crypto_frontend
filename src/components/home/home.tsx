@@ -6,9 +6,9 @@ export const Home = () => {
     <div className={styles.home}>
       <div className={styles.layout}>
         <div className={styles.widgets}>
-          <div className={styles.widget}></div>
-          <div className={styles.widget}></div>
-          <div className={styles.widget}></div>
+          <div className={styles.widget}>хз, что сюда пихнуть</div>
+          <div className={styles.widget}>индекс жадности, как везде</div>
+          <div className={styles.widget}>еще один бесполезный график</div>
         </div>
 
         <div className={styles.graph}>
