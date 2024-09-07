@@ -19,12 +19,16 @@ const ALLOWED_COLUMNS = [
   "seasonPoints",
   "multiplier",
 ];
+
+const GOLD = 879765;
 export const Predictfun = () => {
   const [sortBy, setSortBy] = useState<SortBy>({
     column: "seasonPoints",
     ascending: true,
   });
   const [tableLeaderboard, setTableLeaderboard] = useState<any[]>([]);
+  const [totalPoints, setTotalPoints] = useState<number>(0);
+  const [dailyPoints, setDailyPoints] = useState<number>(0);
   const status = useSelector<RootState, string>(
     (s) => s.blast.predictfunLeaderboardStatus
   );
@@ -75,6 +79,16 @@ export const Predictfun = () => {
     }
 
     setTableLeaderboard(_leaderboard);
+    setTotalPoints(
+      Math.round(
+        leaderboard.map((a) => +a.node.seasonPoints).reduce((x, y) => x + y, 0)
+      )
+    );
+    setDailyPoints(
+      Math.round(
+        leaderboard.map((a) => +a.node.dailyPoints).reduce((x, y) => x + y, 0)
+      )
+    );
   }, [leaderboard, sortBy]);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -108,8 +122,16 @@ export const Predictfun = () => {
   return (
     <div className={styles.leaderboard}>
       <div className={styles.description}>
-        This leaderboard is the parsed data from{" "}
-        <a href="https://predict.fun/rewards">https://predict.fun/rewards</a>
+        <div>
+          This leaderboard is the parsed data from{" "}
+          <a href="https://predict.fun/rewards">https://predict.fun/rewards</a>
+        </div>
+        <div className={styles.points}>
+          <span>Total points: {totalPoints.toLocaleString("ru-RU")}</span>
+          <span>Daily points: {dailyPoints.toLocaleString("ru-RU")}</span>
+          <span>Gold: {GOLD.toLocaleString("ru-RU")}</span>
+          <span>Point/Gold: {(totalPoints / GOLD).toFixed(2)} (linear)</span>
+        </div>
       </div>
       <div className={styles.table}>
         <div ref={tableHeaderRef} className={styles.tableHeader}>

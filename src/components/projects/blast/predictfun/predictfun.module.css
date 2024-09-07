@@ -1,5 +1,5 @@
 :root {
-  --description-height: 40px;
+  --description-height: 60px;
   --tableHeader-height: 50px;
 }
 .leaderboard {
@@ -15,6 +15,12 @@
       transition: 200ms;
       &:hover {
         color: var(--primary-color);
+      }
+    }
+    > .points {
+      margin-top: 10px;
+      > span {
+        margin-right: 15px;
       }
     }
   }
