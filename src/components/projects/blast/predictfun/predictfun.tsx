@@ -9,6 +9,7 @@ import { Loading } from "../../../loading/loading";
 import React from "react";
 import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import favicon from "../../../../assets/blast_favicon.png";
+import Input from "antd/es/input";
 
 type SortBy = { column: string; ascending: boolean };
 
@@ -29,6 +30,7 @@ export const Predictfun = () => {
   const [tableLeaderboard, setTableLeaderboard] = useState<any[]>([]);
   const [totalPoints, setTotalPoints] = useState<number>(0);
   const [dailyPoints, setDailyPoints] = useState<number>(0);
+  const [yourPoints, setYourPoints] = useState("0");
   const status = useSelector<RootState, string>(
     (s) => s.blast.predictfunLeaderboardStatus
   );
@@ -131,6 +133,22 @@ export const Predictfun = () => {
           <span>Daily points: {dailyPoints.toLocaleString("ru-RU")}</span>
           <span>Gold: {GOLD.toLocaleString("ru-RU")}</span>
           <span>Point/Gold: {(totalPoints / GOLD).toFixed(2)} (linear)</span>
+        </div>
+        <div className={styles.calculation}>
+          Your points:
+          <Input
+            className={styles.input}
+            placeholder="Enter number"
+            value={yourPoints}
+            onChange={(e) => setYourPoints(e.target.value)}
+          />
+          <span>
+            Percent from total: {((+yourPoints / totalPoints) * 100).toFixed(4)}
+            %
+          </span>
+          <span>
+            Your gold: {((+yourPoints / totalPoints) * GOLD).toFixed(2)}{" "}
+          </span>
         </div>
       </div>
       <div className={styles.table}>
