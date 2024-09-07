@@ -13,13 +13,14 @@ export const PREDICTFUN_LEADERBOARD_COLUMNS = [
   {
     title: "This Month",
     key: "seasonPoints",
-    width: "120px",
+    width: "150px",
   },
   {
-    title: "Boost",
-    key: "multiplier",
+    title: "Gold",
+    key: "gold",
     width: "80px",
   },
+
   {
     title: "Daily Rank",
     key: "dailyRank",
@@ -29,5 +30,10 @@ export const PREDICTFUN_LEADERBOARD_COLUMNS = [
     title: "24h Pts",
     key: "dailyPoints",
     width: "100px",
+  },
+  {
+    title: "Boost",
+    key: "multiplier",
+    width: "80px",
   },
 ];

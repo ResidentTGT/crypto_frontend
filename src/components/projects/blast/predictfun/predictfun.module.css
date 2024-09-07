@@ -1,5 +1,5 @@
 :root {
-  --description-height: 100px;
+  --description-height: 60px;
   --tableHeader-height: 50px;
 }
 .leaderboard {
@@ -21,18 +21,6 @@
       margin-top: 10px;
       > span {
         margin-right: 15px;
-      }
-    }
-    > .calculation {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      > .input {
-        margin-left: 15px;
-        width: 100px;
-      }
-      > span {
-        margin-left: 15px;
       }
     }
   }

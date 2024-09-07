@@ -9,7 +9,6 @@ import { Loading } from "../../../loading/loading";
 import React from "react";
 import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import favicon from "../../../../assets/blast_favicon.png";
-import Input from "antd/es/input";
 
 type SortBy = { column: string; ascending: boolean };
 
@@ -19,6 +18,7 @@ const ALLOWED_COLUMNS = [
   "dailyPoints",
   "seasonPoints",
   "multiplier",
+  "gold",
 ];
 
 const GOLD = 879765;
@@ -30,7 +30,6 @@ export const Predictfun = () => {
   const [tableLeaderboard, setTableLeaderboard] = useState<any[]>([]);
   const [totalPoints, setTotalPoints] = useState<number>(0);
   const [dailyPoints, setDailyPoints] = useState<number>(0);
-  const [yourPoints, setYourPoints] = useState("0");
   const status = useSelector<RootState, string>(
     (s) => s.blast.predictfunLeaderboardStatus
   );
@@ -44,6 +43,7 @@ export const Predictfun = () => {
       case "dailyPoints":
       case "seasonPoints":
       case "multiplier":
+      case "gold":
         _sortBy.ascending
           ? _leaderboard.sort((a, b) => +b[_sortBy.column] - +a[_sortBy.column])
           : _leaderboard.sort(
@@ -67,6 +67,13 @@ export const Predictfun = () => {
       Object.assign({}, a.node, a.node.account)
     );
 
+    for (let i = 0; i < _leaderboard.length; i++) {
+      _leaderboard[i].percentFromTotal =
+        (_leaderboard[i].seasonPoints / totalPoints) * 100;
+      _leaderboard[i].gold =
+        (_leaderboard[i].seasonPoints / totalPoints) * GOLD;
+    }
+
     sortLeaderboard(_leaderboard, sortBy);
 
     for (let i = 0; i < _leaderboard.length; i++) {
@@ -77,6 +84,11 @@ export const Predictfun = () => {
         Math.round(dailyPoints).toLocaleString("ru-RU");
       _leaderboard[i].seasonPoints =
         Math.round(seasonPoints).toLocaleString("ru-RU");
+      _leaderboard[i].percentFromTotal =
+        _leaderboard[i].percentFromTotal.toFixed(2);
+      _leaderboard[i].gold = Math.round(_leaderboard[i].gold).toLocaleString(
+        "ru-RU"
+      );
       _leaderboard[i].index = i + 1;
     }
 
@@ -91,7 +103,7 @@ export const Predictfun = () => {
         leaderboard.map((a) => +a.node.dailyPoints).reduce((x, y) => x + y, 0)
       )
     );
-  }, [leaderboard, sortBy]);
+  }, [leaderboard, sortBy, totalPoints]);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -133,22 +145,6 @@ export const Predictfun = () => {
           <span>Daily points: {dailyPoints.toLocaleString("ru-RU")}</span>
           <span>Gold: {GOLD.toLocaleString("ru-RU")}</span>
           <span>Point/Gold: {(totalPoints / GOLD).toFixed(2)} (linear)</span>
-        </div>
-        <div className={styles.calculation}>
-          Your points:
-          <Input
-            className={styles.input}
-            placeholder="Enter number"
-            value={yourPoints}
-            onChange={(e) => setYourPoints(e.target.value.replaceAll(" ", ""))}
-          />
-          <span>
-            Percent from total: {((+yourPoints / totalPoints) * 100).toFixed(4)}
-            %
-          </span>
-          <span>
-            Your gold: {((+yourPoints / totalPoints) * GOLD).toFixed(2)}{" "}
-          </span>
         </div>
       </div>
       <div className={styles.table}>
@@ -195,6 +191,10 @@ export const Predictfun = () => {
                             <img src={favicon} alt="logo" />
                           </a>
                           {l[c.key]}
+                        </>
+                      ) : c.key === "seasonPoints" ? (
+                        <>
+                          {l[c.key]} ({l.percentFromTotal}%)
                         </>
                       ) : (
                         l[c.key]
