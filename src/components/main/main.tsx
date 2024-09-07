@@ -9,6 +9,7 @@ import { Leaderboard } from "../projects/blast/leaderboard/leaderboard";
 import { Gold } from "../projects/blast/gold/gold";
 import { Linea } from "../projects/linea/linea";
 import { Poh } from "../projects/linea/poh/poh";
+import { Predictfun } from "../projects/blast/predictfun/predictfun";
 
 export const Main: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ export const Main: React.FC = () => {
             ></Route>
             <Route path="leaderboard" element={<Leaderboard />}></Route>
             <Route path="gold" element={<Gold />}></Route>
+            <Route path="predictfun" element={<Predictfun />}></Route>
           </Route>
           <Route path="linea" element={<Linea />}>
             <Route path="" element={<Navigate to="poh" replace />}></Route>

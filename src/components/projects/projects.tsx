@@ -36,6 +36,12 @@ export const Projects = () => {
           highlighted: false,
           openedMenu: false,
         },
+        {
+          name: "Predict",
+          path: "predictfun",
+          highlighted: false,
+          openedMenu: false,
+        },
       ],
     },
     {

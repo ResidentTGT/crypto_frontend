@@ -1,41 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./leaderboard.module.css";
+import styles from "./predictfun.module.css";
 import { AppDispatch, RootState } from "../../../../stores/app";
 import { UIEvent, useEffect, useRef, useState } from "react";
-import { getLeaderboard } from "../../../../reducers/blast";
-import { LEADERBOARD_COLUMNS } from "./leaderboardColumns";
+import { getPredictfunLeaderboard } from "../../../../reducers/blast";
+import { PREDICTFUN_LEADERBOARD_COLUMNS } from "./predictfunLeaderboardColumns";
 import Error from "../../../error/error";
 import { Loading } from "../../../loading/loading";
 import React from "react";
 import { UpOutlined, DownOutlined } from "@ant-design/icons";
+import favicon from "../../../../assets/blast_favicon.png";
 
 type SortBy = { column: string; ascending: boolean };
-export const Leaderboard = () => {
+
+const ALLOWED_COLUMNS = [
+  "name",
+  "dailyRank",
+  "dailyPoints",
+  "seasonPoints",
+  "multiplier",
+];
+export const Predictfun = () => {
   const [sortBy, setSortBy] = useState<SortBy>({
-    column: "goldAccrued",
+    column: "seasonPoints",
     ascending: true,
   });
   const [tableLeaderboard, setTableLeaderboard] = useState<any[]>([]);
   const status = useSelector<RootState, string>(
-    (s) => s.blast.leaderboardStatus
+    (s) => s.blast.predictfunLeaderboardStatus
   );
-  const leaderboard = useSelector<RootState, any[]>((s) => s.blast.leaderboard);
+  const leaderboard = useSelector<RootState, any[]>(
+    (s) => s.blast.predictfunLeaderboard
+  );
 
   const sortLeaderboard = (_leaderboard: any[], _sortBy: SortBy) => {
     switch (_sortBy.column) {
-      case "goldAccrued":
-      case "goldDistributed":
-      case "goldLeft":
-      case "pointsAccrued":
-      case "pointsDistributed":
-      case "pointsLeft":
+      case "dailyRank":
+      case "dailyPoints":
+      case "seasonPoints":
+      case "multiplier":
         _sortBy.ascending
           ? _leaderboard.sort((a, b) => +b[_sortBy.column] - +a[_sortBy.column])
           : _leaderboard.sort(
               (a, b) => +a[_sortBy.column] - +b[_sortBy.column]
             );
         break;
-      case "category":
       case "name":
         _sortBy.ascending
           ? _leaderboard.sort((a, b) =>
@@ -49,50 +57,21 @@ export const Leaderboard = () => {
   };
 
   useEffect(() => {
-    const _leaderboard = leaderboard.map((a) => Object.assign({}, a));
-
-    for (let i = 0; i < _leaderboard.length; i++) {
-      const pointsAccrued = _leaderboard[i].pointsAccrued;
-      const pointsDistributed = _leaderboard[i].pointsDistributed;
-      const pointsLeft = pointsAccrued - pointsDistributed;
-      const goldAccrued = _leaderboard[i].goldAccrued;
-      const goldDistributed = _leaderboard[i].goldDistributed;
-      const goldLeft = goldAccrued - goldDistributed;
-      _leaderboard[i].pointsLeft = pointsLeft;
-      _leaderboard[i].goldLeft = goldLeft;
-    }
+    const _leaderboard = leaderboard.map((a) =>
+      Object.assign({}, a.node, a.node.account)
+    );
 
     sortLeaderboard(_leaderboard, sortBy);
 
     for (let i = 0; i < _leaderboard.length; i++) {
-      const pointsAccrued = _leaderboard[i].pointsAccrued;
-      const pointsDistributed = _leaderboard[i].pointsDistributed;
-      const pointsLeft =
-        _leaderboard[i].pointsAccrued - _leaderboard[i].pointsDistributed;
-      const goldAccrued = _leaderboard[i].goldAccrued;
-      const goldDistributed = _leaderboard[i].goldDistributed;
-      const goldLeft = goldAccrued - goldDistributed;
-      _leaderboard[i].pointsAccrued =
-        Math.round(pointsAccrued).toLocaleString("ru-RU");
-      _leaderboard[i].pointsDistributed =
-        Math.round(pointsDistributed).toLocaleString("ru-RU");
-      _leaderboard[i].goldAccrued =
-        Math.round(goldAccrued).toLocaleString("ru-RU");
-      _leaderboard[i].goldDistributed =
-        Math.round(goldDistributed).toLocaleString("ru-RU");
+      const dailyPoints = _leaderboard[i].dailyPoints;
+      const seasonPoints = _leaderboard[i].seasonPoints;
 
-      _leaderboard[i].pointsLeft = `${Math.round(pointsLeft).toLocaleString(
-        "ru-RU"
-      )} ${
-        pointsAccrued
-          ? `(${((pointsLeft / pointsAccrued) * 100).toFixed(2)}%)`
-          : ""
-      }`;
-      _leaderboard[i].goldLeft = `${Math.round(goldLeft).toLocaleString(
-        "ru-RU"
-      )} ${
-        goldAccrued ? `(${((goldLeft / goldAccrued) * 100).toFixed(2)}%)` : ""
-      }`;
+      _leaderboard[i].dailyPoints =
+        Math.round(dailyPoints).toLocaleString("ru-RU");
+      _leaderboard[i].seasonPoints =
+        Math.round(seasonPoints).toLocaleString("ru-RU");
+      _leaderboard[i].index = i + 1;
     }
 
     setTableLeaderboard(_leaderboard);
@@ -101,7 +80,7 @@ export const Leaderboard = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (leaderboard.length === 0) dispatch(getLeaderboard());
+    if (leaderboard.length === 0) dispatch(getPredictfunLeaderboard());
   }, [dispatch, leaderboard.length]);
 
   const tableHeaderRef = useRef<HTMLDivElement | null>(null);
@@ -119,30 +98,32 @@ export const Leaderboard = () => {
   };
 
   const handleClickSort = (key: string) => {
-    setSortBy({
-      column: key,
-      ascending: sortBy.column === key ? !sortBy.ascending : true,
-    });
+    if (ALLOWED_COLUMNS.includes(key))
+      setSortBy({
+        column: key,
+        ascending: sortBy.column === key ? !sortBy.ascending : true,
+      });
   };
 
   return (
     <div className={styles.leaderboard}>
       <div className={styles.description}>
         This leaderboard is the parsed data from{" "}
-        <a href="https://blast.io/en/airdrop">Offical Blast Leaderboard</a>
+        <a href="https://predict.fun/rewards">https://predict.fun/rewards</a>
       </div>
       <div className={styles.table}>
         <div ref={tableHeaderRef} className={styles.tableHeader}>
-          {LEADERBOARD_COLUMNS.map((c) => {
+          {PREDICTFUN_LEADERBOARD_COLUMNS.map((c) => {
             return (
               <div
                 key={c.key}
-                style={{ minWidth: c.width }}
+                style={{ minWidth: c.width, width: c.width }}
                 onClick={() => handleClickSort(c.key)}
               >
                 <React.Fragment>
                   {c.title}
-                  {c.key !== "imageUrl" && c.key === sortBy.column ? (
+                  {ALLOWED_COLUMNS.includes(c.key) &&
+                  c.key === sortBy.column ? (
                     sortBy.ascending ? (
                       <UpOutlined className={styles.arrow} />
                     ) : (
@@ -157,20 +138,24 @@ export const Leaderboard = () => {
           })}
           <div style={{ minWidth: "20px" }}></div> {/* for scrollbar */}
         </div>
+
         <div className={styles.tableBody} onScroll={handleScrollTable}>
           {tableLeaderboard.map((l, index) => {
             return (
               <div key={index} className={styles.tableRow}>
-                {LEADERBOARD_COLUMNS.map((c) => {
+                {PREDICTFUN_LEADERBOARD_COLUMNS.map((c) => {
                   return (
                     <div
                       key={index + c.key}
                       style={{ minWidth: c.width, width: c.width }}
                     >
-                      {c.key === "imageUrl" ? (
-                        <img src={l[c.key]} alt={l.name} />
-                      ) : c.key === "name" ? (
-                        <a href={`https://x.com/${l.twitter}`}>{l[c.key]}</a>
+                      {c.key === "name" ? (
+                        <>
+                          <a href={`https://blastscan.io/address/${l.address}`}>
+                            <img src={favicon} alt="logo" />
+                          </a>
+                          {l[c.key]}
+                        </>
                       ) : (
                         l[c.key]
                       )}

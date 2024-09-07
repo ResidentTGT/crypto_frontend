@@ -16,14 +16,33 @@ export const getLeaderboard = createAsyncThunk(
   }
 );
 
+export const getPredictfunLeaderboard = createAsyncThunk(
+  "blast/getPredictfunLeaderboard",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        API_URL + "blast/predictfun/leaderboard"
+      );
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export interface BlastState {
-  status: string;
+  leaderboardStatus: string;
   leaderboard: any[];
+  predictfunLeaderboardStatus: string;
+  predictfunLeaderboard: any[];
 }
 
 const initialState: BlastState = {
-  status: "idle",
+  leaderboardStatus: "idle",
   leaderboard: [],
+  predictfunLeaderboard: [],
+  predictfunLeaderboardStatus: "idle",
 };
 
 const blastSlice = createSlice({
@@ -33,14 +52,24 @@ const blastSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getLeaderboard.pending, (state) => {
-        state.status = "loading";
+        state.leaderboardStatus = "loading";
       })
       .addCase(getLeaderboard.fulfilled, (state, action) => {
         state.leaderboard = action.payload;
-        state.status = "succeeded";
+        state.leaderboardStatus = "succeeded";
       })
       .addCase(getLeaderboard.rejected, (state, action) => {
-        state.status = "failed";
+        state.leaderboardStatus = "failed";
+      })
+      .addCase(getPredictfunLeaderboard.pending, (state) => {
+        state.predictfunLeaderboardStatus = "loading";
+      })
+      .addCase(getPredictfunLeaderboard.fulfilled, (state, action) => {
+        state.predictfunLeaderboard = action.payload;
+        state.predictfunLeaderboardStatus = "succeeded";
+      })
+      .addCase(getPredictfunLeaderboard.rejected, (state, action) => {
+        state.predictfunLeaderboardStatus = "failed";
       });
   },
 });
