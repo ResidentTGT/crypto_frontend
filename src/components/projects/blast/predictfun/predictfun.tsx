@@ -140,7 +140,7 @@ export const Predictfun = () => {
             className={styles.input}
             placeholder="Enter number"
             value={yourPoints}
-            onChange={(e) => setYourPoints(e.target.value)}
+            onChange={(e) => setYourPoints(e.target.value.replaceAll(" ", ""))}
           />
           <span>
             Percent from total: {((+yourPoints / totalPoints) * 100).toFixed(4)}
