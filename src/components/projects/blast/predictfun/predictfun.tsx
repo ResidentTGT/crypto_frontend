@@ -12,19 +12,20 @@ import favicon from "../../../../assets/blast_favicon.png";
 
 type SortBy = { column: string; ascending: boolean };
 
-const ALLOWED_COLUMNS = [
+const ALLOWED_COLUMNS_FOR_SORT = [
   "name",
   "dailyRank",
   "dailyPoints",
   "seasonPoints",
   "multiplier",
   "gold",
+  "epochPoints",
 ];
 
 const GOLD = 879765;
 export const Predictfun = () => {
   const [sortBy, setSortBy] = useState<SortBy>({
-    column: "seasonPoints",
+    column: "epochPoints",
     ascending: true,
   });
   const [tableLeaderboard, setTableLeaderboard] = useState<any[]>([]);
@@ -42,6 +43,7 @@ export const Predictfun = () => {
       case "dailyRank":
       case "dailyPoints":
       case "seasonPoints":
+      case "epochPoints":
       case "multiplier":
       case "gold":
         _sortBy.ascending
@@ -69,9 +71,8 @@ export const Predictfun = () => {
 
     for (let i = 0; i < _leaderboard.length; i++) {
       _leaderboard[i].percentFromTotal =
-        (_leaderboard[i].seasonPoints / totalPoints) * 100;
-      _leaderboard[i].gold =
-        (_leaderboard[i].seasonPoints / totalPoints) * GOLD;
+        (_leaderboard[i].epochPoints / totalPoints) * 100;
+      _leaderboard[i].gold = (_leaderboard[i].epochPoints / totalPoints) * GOLD;
     }
 
     sortLeaderboard(_leaderboard, sortBy);
@@ -79,11 +80,14 @@ export const Predictfun = () => {
     for (let i = 0; i < _leaderboard.length; i++) {
       const dailyPoints = _leaderboard[i].dailyPoints;
       const seasonPoints = _leaderboard[i].seasonPoints;
+      const epochPoints = _leaderboard[i].epochPoints;
 
       _leaderboard[i].dailyPoints =
         Math.round(dailyPoints).toLocaleString("ru-RU");
       _leaderboard[i].seasonPoints =
         Math.round(seasonPoints).toLocaleString("ru-RU");
+      _leaderboard[i].epochPoints =
+        Math.round(epochPoints).toLocaleString("ru-RU");
       _leaderboard[i].percentFromTotal =
         _leaderboard[i].percentFromTotal.toFixed(2);
       _leaderboard[i].gold = Math.round(_leaderboard[i].gold).toLocaleString(
@@ -95,7 +99,7 @@ export const Predictfun = () => {
     setTableLeaderboard(_leaderboard);
     setTotalPoints(
       Math.round(
-        leaderboard.map((a) => +a.node.seasonPoints).reduce((x, y) => x + y, 0)
+        leaderboard.map((a) => +a.node.epochPoints).reduce((x, y) => x + y, 0)
       )
     );
     setDailyPoints(
@@ -126,7 +130,7 @@ export const Predictfun = () => {
   };
 
   const handleClickSort = (key: string) => {
-    if (ALLOWED_COLUMNS.includes(key))
+    if (ALLOWED_COLUMNS_FOR_SORT.includes(key))
       setSortBy({
         column: key,
         ascending: sortBy.column === key ? !sortBy.ascending : true,
@@ -158,7 +162,7 @@ export const Predictfun = () => {
               >
                 <React.Fragment>
                   {c.title}
-                  {ALLOWED_COLUMNS.includes(c.key) &&
+                  {ALLOWED_COLUMNS_FOR_SORT.includes(c.key) &&
                   c.key === sortBy.column ? (
                     sortBy.ascending ? (
                       <UpOutlined className={styles.arrow} />
@@ -192,7 +196,7 @@ export const Predictfun = () => {
                           </a>
                           {l[c.key]}
                         </>
-                      ) : c.key === "seasonPoints" ? (
+                      ) : c.key === "epochPoints" ? (
                         <>
                           {l[c.key]} ({l.percentFromTotal}%)
                         </>

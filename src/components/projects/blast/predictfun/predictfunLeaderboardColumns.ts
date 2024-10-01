@@ -11,8 +11,8 @@ export const PREDICTFUN_LEADERBOARD_COLUMNS = [
     width: "150px",
   },
   {
-    title: "This Month",
-    key: "seasonPoints",
+    title: "Epoch Pts",
+    key: "epochPoints",
     width: "150px",
   },
   {
@@ -20,7 +20,11 @@ export const PREDICTFUN_LEADERBOARD_COLUMNS = [
     key: "gold",
     width: "80px",
   },
-
+  {
+    title: "Total Pts",
+    key: "seasonPoints",
+    width: "150px",
+  },
   {
     title: "Daily Rank",
     key: "dailyRank",
