@@ -141,7 +141,7 @@ export const Predictfun = () => {
           <a href="https://predict.fun/rewards">https://predict.fun/rewards</a>
         </div>
         <div className={styles.points}>
-          <span>Total points: {totalPoints.toLocaleString("ru-RU")}</span>
+          <span>Epoch points: {totalPoints.toLocaleString("ru-RU")}</span>
           <span>Daily points: {dailyPoints.toLocaleString("ru-RU")}</span>
           <span>Gold: {GOLD.toLocaleString("ru-RU")}</span>
           <span>Point/Gold: {(totalPoints / GOLD).toFixed(2)} (linear)</span>
