@@ -16,7 +16,7 @@ export const PREDICTFUN_LEADERBOARD_COLUMNS = [
     width: "150px",
   },
   {
-    title: "Gold",
+    title: "Gold to the end",
     key: "gold",
     width: "80px",
   },

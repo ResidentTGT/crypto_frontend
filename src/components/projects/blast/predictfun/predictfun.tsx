@@ -23,6 +23,8 @@ const ALLOWED_COLUMNS_FOR_SORT = [
 ];
 
 const GOLD = 1100000;
+const TOTAL_EPOCH_POINTS_TO_THE_END = 12200000 * 30;
+
 export const Predictfun = () => {
   const [sortBy, setSortBy] = useState<SortBy>({
     column: "epochPoints",
@@ -72,7 +74,8 @@ export const Predictfun = () => {
     for (let i = 0; i < _leaderboard.length; i++) {
       _leaderboard[i].percentFromTotal =
         (_leaderboard[i].epochPoints / totalPoints) * 100;
-      _leaderboard[i].gold = (_leaderboard[i].epochPoints / totalPoints) * GOLD;
+      _leaderboard[i].gold =
+        (_leaderboard[i].epochPoints / TOTAL_EPOCH_POINTS_TO_THE_END) * GOLD;
     }
 
     sortLeaderboard(_leaderboard, sortBy);
@@ -148,7 +151,10 @@ export const Predictfun = () => {
           <span>Epoch points: {totalPoints.toLocaleString("ru-RU")}</span>
           <span>Daily points: {dailyPoints.toLocaleString("ru-RU")}</span>
           <span>Gold: {GOLD.toLocaleString("ru-RU")}</span>
-          <span>Point/Gold: {(totalPoints / GOLD).toFixed(2)} (linear)</span>
+          <span>
+            Point/Gold to the end: ~
+            {(TOTAL_EPOCH_POINTS_TO_THE_END / GOLD).toFixed(2)}
+          </span>
         </div>
       </div>
       <div className={styles.table}>
