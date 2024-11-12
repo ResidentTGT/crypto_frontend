@@ -22,7 +22,7 @@ const ALLOWED_COLUMNS_FOR_SORT = [
   "epochPoints",
 ];
 
-const GOLD = 1107522;
+const GOLD = 1100000;
 export const Predictfun = () => {
   const [sortBy, setSortBy] = useState<SortBy>({
     column: "epochPoints",
